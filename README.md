@@ -19,6 +19,10 @@ moveCommand.undo();
 // or
 history.undoLast();
 ```
+Redoing the command is done by calling `execute()` again.
+```
+moveCommand.execute();
+```
 
 Fill commands are issued with:
 ```

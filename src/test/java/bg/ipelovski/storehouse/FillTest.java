@@ -65,4 +65,34 @@ public class FillTest extends TestCase {
         assertNotNull("Exception should be thrown", exception);
         assertEquals("No filled should be found", "No filler found", exception.getMessage());
     }
+
+    public void testUndoRedo() throws Exception {
+        Storage storage = Storages.build();
+        CommandHistory history = new CommandHistory();
+
+        storage.addContainer("AA", 0);
+        storage.addContainer("AB", 0);
+        storage.addContainer("AC", 0);
+        storage.addContainer("BB", 1);
+        storage.addContainer("CC", 2);
+        storage.addContainer("DD", 3);
+
+        FillCommand fillCommand = new FillCommand(storage, "AC", 10, history);
+        fillCommand.execute();
+
+        Container containerFrom = (Container)storage.find("AC");
+
+        assertEquals("Container AC should contain fluid", 10,
+                containerFrom.getFluid());
+
+        fillCommand.undo();
+
+        assertEquals("Container AC should contain no fluid", 0,
+                containerFrom.getFluid());
+
+        fillCommand.execute();
+
+        assertEquals("Container AC should contain fluid", 10,
+                containerFrom.getFluid());
+    }
 }
