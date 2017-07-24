@@ -7,7 +7,7 @@ import bg.ipelovski.storehouse.command.Decision;
 
 public class TopFillDecision implements Decision<FillCommand, Filler> {
 
-    public static void init() {
+    static {
         FillCommand.addDecision(new TopFillDecision());
     }
 

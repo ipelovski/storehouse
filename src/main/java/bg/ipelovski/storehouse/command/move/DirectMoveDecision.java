@@ -6,7 +6,7 @@ import bg.ipelovski.storehouse.command.Decision;
 
 public class DirectMoveDecision implements Decision<MoveCommand, Mover> {
 
-    public static void init() {
+    static {
         MoveCommand.addDecision(new DirectMoveDecision());
     }
 

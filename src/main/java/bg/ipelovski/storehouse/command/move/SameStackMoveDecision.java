@@ -1,6 +1,5 @@
 package bg.ipelovski.storehouse.command.move;
 
-import bg.ipelovski.storehouse.Container;
 import bg.ipelovski.storehouse.Locatable;
 import bg.ipelovski.storehouse.StackOfContainers;
 import bg.ipelovski.storehouse.Storage;
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 public class SameStackMoveDecision implements Decision<MoveCommand, Mover> {
 
-    public static void init() {
+    static {
         MoveCommand.addDecision(new SameStackMoveDecision());
     }
 
@@ -25,7 +24,7 @@ public class SameStackMoveDecision implements Decision<MoveCommand, Mover> {
             StackOfContainers tallestStack = maybeTallestStack.orElseThrow(
                     () -> new RuntimeException("No stack found."));
             int availableSpace = storage.availableSpace(to.getLocation().getStack(), tallestStack);
-            if (availableSpace > from.getLocation().offset()) {
+            if (availableSpace >= from.getLocation().offset()) {
                 return true;
             }
         }

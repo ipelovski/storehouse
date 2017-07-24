@@ -7,13 +7,17 @@ import java.util.Optional;
 
 public class Storage {
 
-    public static final int MAX_STACKS_COUNT = 6;
+    private List<StackOfContainers> stacks;
+    private int maxStacksCount;
+    private int maxStackSize;
 
-    private List<StackOfContainers> stacks = new ArrayList<>(MAX_STACKS_COUNT);
+    public Storage(int maxStacksCount, int maxStackSize) {
+        this.maxStacksCount = maxStacksCount;
+        this.maxStackSize = maxStackSize;
 
-    {
-        for (int i = 0; i < MAX_STACKS_COUNT; i++) {
-            stacks.add(i, new StackOfContainers(i));
+        stacks = new ArrayList<>(maxStacksCount);
+        for (int i = 0; i < maxStacksCount; i++) {
+            stacks.add(i, new StackOfContainers(i, maxStackSize));
         }
     }
 
@@ -73,7 +77,7 @@ public class Storage {
             StackOfContainers stack = stacks.get(i);
             int containersCount = stack.getContainers().size();
             if (stack != exclude && containersCount > max
-                    && containersCount < StackOfContainers.MAX_CONTAINERS_COUNT) {
+                    && containersCount < maxStackSize) {
                 max = containersCount;
                 index = i;
             }
@@ -86,7 +90,7 @@ public class Storage {
     }
 
     public void print() {
-        for (int i = StackOfContainers.MAX_CONTAINERS_COUNT - 1; i >= 0; i--) {
+        for (int i = maxStackSize - 1; i >= 0; i--) {
             for (StackOfContainers stack : stacks) {
                 if (stack.getContainers().size() > i) {
                     Container container = stack.getContainers().get(i);

@@ -6,7 +6,7 @@ import bg.ipelovski.storehouse.command.Decision;
 
 public class IndirectMoveDecision implements Decision<MoveCommand, Mover> {
 
-    public static void init() {
+    static {
         MoveCommand.addDecision(new IndirectMoveDecision());
     }
 
@@ -17,7 +17,7 @@ public class IndirectMoveDecision implements Decision<MoveCommand, Mover> {
         Locatable to = storage.find(command.getTo());
         if (from.getLocation().getStack() != to.getLocation().getStack()) {
             int availableSpace = storage.availableSpace(to.getLocation().getStack());
-            if (availableSpace > from.getLocation().offset()) {
+            if (availableSpace >= from.getLocation().offset()) {
                 return true;
             }
         }

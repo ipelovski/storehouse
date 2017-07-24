@@ -6,13 +6,15 @@ import java.util.Optional;
 
 public class StackOfContainers {
 
-    public static final int MAX_CONTAINERS_COUNT = 5;
     private final int id;
-    private List<Container> containers = new ArrayList<>(MAX_CONTAINERS_COUNT);
+    private int maxStackSize;
+    private List<Container> containers;
     private PlaceHolder placeHolder = new PlaceHolder(new Location(this, null, -1));
 
-    public StackOfContainers(int id) {
+    public StackOfContainers(int id, int maxStackSize) {
         this.id = id;
+        this.maxStackSize = maxStackSize;
+        containers = new ArrayList<>(maxStackSize);
     }
 
     public int getId() {
@@ -36,7 +38,7 @@ public class StackOfContainers {
     }
 
     public int availableSpace() {
-        return MAX_CONTAINERS_COUNT - containers.size();
+        return maxStackSize - containers.size();
     }
 
     public boolean hasAvailableSpace() {
@@ -52,12 +54,17 @@ public class StackOfContainers {
     }
 
     public Optional<Container> removeTopContainer() {
-        if (containers.size() > 1) { // do not remove the bottom container
+        if (containers.size() > 0) {
             Container topContainer = containers.remove(containers.size() - 1);
             topContainer.setLocation(null);
             return Optional.of(topContainer);
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

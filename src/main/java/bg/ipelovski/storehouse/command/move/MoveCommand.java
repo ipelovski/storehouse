@@ -1,5 +1,6 @@
 package bg.ipelovski.storehouse.command.move;
 
+import bg.ipelovski.storehouse.Locatable;
 import bg.ipelovski.storehouse.Storage;
 import bg.ipelovski.storehouse.command.Command;
 import bg.ipelovski.storehouse.command.CommandHistory;
@@ -65,9 +66,13 @@ public class MoveCommand implements Command {
         if (moved) {
             throw new RuntimeException("Already moved.");
         }
+        Locatable toLocatable = storage.find(to);
+        if (!toLocatable.getLocation().isTop()) {
+            throw new RuntimeException("The 'to' container should be on top.");
+        }
         mover = decisionMaker.get(this);
-        moved = true;
         mover.move();
+        moved = true;
         history.add(this);
     }
 

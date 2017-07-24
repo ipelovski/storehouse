@@ -1,27 +1,15 @@
 package bg.ipelovski.storehouse;
 
 import bg.ipelovski.storehouse.command.CommandHistory;
-import bg.ipelovski.storehouse.command.fill.BottomFillDecision;
 import bg.ipelovski.storehouse.command.fill.FillCommand;
-import bg.ipelovski.storehouse.command.fill.TopFillDecision;
-import bg.ipelovski.storehouse.command.move.DirectMoveDecision;
-import bg.ipelovski.storehouse.command.move.IndirectMoveDecision;
 import bg.ipelovski.storehouse.command.move.MoveCommand;
-import bg.ipelovski.storehouse.command.move.SameStackMoveDecision;
 
 public class Application {
 
     public static void main(String[] args) {
 
-        Storage storage = new Storage();
+        Storage storage = Storages.build();
         CommandHistory history = new CommandHistory();
-
-        DirectMoveDecision.init();
-        IndirectMoveDecision.init();
-        SameStackMoveDecision.init();
-
-        TopFillDecision.init();
-        BottomFillDecision.init();
         
         System.out.println("Initial:");
         storage.addContainer("AA", 0);

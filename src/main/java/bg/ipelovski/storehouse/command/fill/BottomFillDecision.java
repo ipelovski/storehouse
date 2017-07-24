@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class BottomFillDecision implements Decision<FillCommand, Filler> {
 
-    public static void init() {
+    static {
         FillCommand.addDecision(new BottomFillDecision());
     }
 
@@ -19,12 +19,8 @@ public class BottomFillDecision implements Decision<FillCommand, Filler> {
         Storage storage = command.getStorage();
         Locatable target = storage.find(command.getTarget());
         if (!target.getLocation().isTop()) {
-            Optional<StackOfContainers> maybeTallestStack =
-                    storage.findTallestAvailableStack(target.getLocation().getStack());
-            StackOfContainers tallestStack = maybeTallestStack.orElseThrow(
-                    () -> new RuntimeException("No stack found."));
-            int availableSpace = storage.availableSpace(target.getLocation().getStack(), tallestStack);
-            return availableSpace > target.getLocation().offset();
+            int availableSpace = storage.availableSpace(target.getLocation().getStack());
+            return availableSpace >= target.getLocation().offset();
         } else {
             return false;
         }

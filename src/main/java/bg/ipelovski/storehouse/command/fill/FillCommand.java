@@ -65,8 +65,8 @@ public class FillCommand implements Command {
             throw new RuntimeException("Already filled.");
         }
         filler = decisionMaker.get(this);
-        filled = true;
         filledFluid = filler.fill(fluid);
+        filled = true;
         history.add(this);
     }
 

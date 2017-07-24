@@ -26,12 +26,8 @@ public class BottomFiller implements Filler {
     @Override
     public int fill(int fluid) {
         List<MoveStep> tempSteps = new ArrayList<>();
-        Optional<StackOfContainers> maybeTallestStack = storage.findTallestAvailableStack(
-                targetLocation.getStack());
-        StackOfContainers tallestStack = maybeTallestStack.orElseThrow(
-                () -> new RuntimeException("No stack found."));
         while (!target.getLocation().isTop()) {
-            StackOfContainers stack = findAvailableStack(tallestStack);
+            StackOfContainers stack = findAvailableStack(targetLocation.getStack());
             tempSteps.add(makeStep(targetLocation.getStack(), stack));
         }
         TopFiller filler = new TopFiller(target);
