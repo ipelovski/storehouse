@@ -23,7 +23,6 @@ public class Application {
         System.out.println("Direct move:");
         MoveCommand moveCommand = new MoveCommand(storage, "AC", "CC", history);
         moveCommand.execute();
-//        history.undoLast();
         storage.print();
 
         System.out.println("Direct move undo:");
@@ -33,17 +32,16 @@ public class Application {
         System.out.println("Indirect move:");
         moveCommand = new MoveCommand(storage,"AA", "CC", history);
         moveCommand.execute();
-//        history.undoLast();
         storage.print();
 
         System.out.println("Indirect move undo:");
+//        history.undoLast();
         moveCommand.undo();
         storage.print();
 
         System.out.println("Same stack move:");
         moveCommand = new MoveCommand(storage, "AA", "AC", history);
         moveCommand.execute();
-//        history.undoLast();
         storage.print();
 
         System.out.println("Same stack move undo:");
@@ -53,7 +51,6 @@ public class Application {
         System.out.println("Top fill:");
         FillCommand fillCommand = new FillCommand(storage, "AC", 10, history);
         fillCommand.execute();
-//        history.undoLast();
         storage.print();
 
         System.out.println("Top fill undo:");
@@ -63,7 +60,6 @@ public class Application {
         System.out.println("Bottom fill:");
         fillCommand = new FillCommand(storage, "AA", 10, history);
         fillCommand.execute();
-//        history.undoLast();
         storage.print();
 
         System.out.println("Bottom fill undo:");

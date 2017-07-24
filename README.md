@@ -13,7 +13,18 @@ MoveCommand moveCommand = new MoveCommand(storage, /*from:*/ "AC", /*to:*/ "CC",
 moveCommand.execute();
 ```
 The history (an instance of `CommandHistory`) maintains a stack of commands and can be used to undo latest commands.
+Undoing commands is done with:
+```
+moveCommand.undo();
+// or
+history.undoLast();
+```
 
+Fill commands are issued with:
+```
+FillCommand fillCommand = new FillCommand(storage, /*target:*/ "AC", /*fluid:*/ 10, history);
+fillCommand.execute();
+```
 
 After a command is issued it checks for available strategies that can fulfill the command. Each strategy is implemented with a pair of classes. One, named a decision and implementing the `Decision<>` interface, checks if it knows whether it can fulfill the command, and another class that makes the necessary actions to fulfill the command. For example the `DirectMoveDecision` checks if the first container is already on top of its stack so it can be moved directly on top of the second container. An instance of the `DirectMover` class actually carries the command and performs the necessary moves (in this case only one move).
 
